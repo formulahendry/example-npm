@@ -1,6 +1,6 @@
 workflow "Build, Test, and Publish" {
   on = "push"
-  resolves = ["Publish"]
+  resolves = ["Master"]
 }
 
 action "Build" {
@@ -21,9 +21,12 @@ action "Master" {
   args = "branch master"
 }
 
-action "Publish" {
-  needs = "Master"
-  uses = "actions/npm@master"
-  args = "publish --access public"
-  secrets = ["NPM_AUTH_TOKEN"]
+workflow "New workflow" {
+  on = "push"
+  resolves = ["GitHub Action for npm"]
+}
+
+action "GitHub Action for npm" {
+  uses = "actions/npm@e7aaefe"
+  args = "install"
 }
